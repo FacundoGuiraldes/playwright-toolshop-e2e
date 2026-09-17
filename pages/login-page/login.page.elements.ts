@@ -1,5 +1,4 @@
 import { Page } from '@playwright/test';
-import { CommonPage } from '../common-page/common.page';
 
 export class LoginPageElements {
   private page: Page
@@ -17,7 +16,7 @@ export class LoginPageElements {
 
   get button(){
     return{
-        login: this.page.locator('[data-test="login-submit"]')
+        login: this.page.locator('[data-test="login-submit"]'),
     }
   }
 }

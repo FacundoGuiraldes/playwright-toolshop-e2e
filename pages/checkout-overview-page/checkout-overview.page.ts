@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
-import { CommonPage } from '../common-page/common.page';
+import { CommonPageMethods } from '../common-page/common.page.methods';
 
-export class CheckoutOverviewPage extends CommonPage {
+export class CheckoutOverviewPage extends CommonPageMethods {
   constructor(page: Page) {
     super(page);
   }
