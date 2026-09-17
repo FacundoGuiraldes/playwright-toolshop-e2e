@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { ProductDetailPageElements } from './product-detail.page.elements';
+import { AllureLogger } from '../../support/allure-logger';
 
 export class ProductDetailPageMethods {
   private page: Page;
@@ -11,18 +12,26 @@ export class ProductDetailPageMethods {
   }
 
   async addToCart() {
-    await this.productDetailPageElements.addToCartButton.click();
+    return AllureLogger.logStep('add the product to the cart', async () => {
+      await this.productDetailPageElements.addToCartButton.click();
+    });
   }
 
   async setQuantity(quantity: number) {
-    await this.productDetailPageElements.quantity.input.fill(quantity.toString());
+    return AllureLogger.logStep(`set quantity to ${quantity}`, async () => {
+      await this.productDetailPageElements.quantity.input.fill(quantity.toString());
+    });
   }
 
   async increaseQuantity() {
-    await this.productDetailPageElements.quantity.increaseButton.click();
+    return AllureLogger.logStep('increase quantity by one', async () => {
+      await this.productDetailPageElements.quantity.increaseButton.click();
+    });
   }
 
   async decreaseQuantity() {
-    await this.productDetailPageElements.quantity.decreaseButton.click();
+    return AllureLogger.logStep('decrease quantity by one', async () => {
+      await this.productDetailPageElements.quantity.decreaseButton.click();
+    });
   }
 }

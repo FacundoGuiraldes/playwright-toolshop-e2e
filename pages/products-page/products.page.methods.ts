@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { ProductsPageElements } from './products.page.elements';
+import { AllureLogger } from '../../support/allure-logger';
 
 export class ProductsPageMethods {
   private page: Page;
@@ -11,31 +12,45 @@ export class ProductsPageMethods {
   }
 
   async search(query: string) {
-    await this.productsPageElements.search.input.fill(query);
-    await this.productsPageElements.search.submitButton.click();
+    return AllureLogger.logStep(`search for "${query}"`, async () => {
+      await this.productsPageElements.search.input.fill(query);
+      await this.productsPageElements.search.submitButton.click();
+    });
   }
 
   async resetSearch() {
-    await this.productsPageElements.search.resetButton.click();
+    return AllureLogger.logStep('reset the search', async () => {
+      await this.productsPageElements.search.resetButton.click();
+    });
   }
 
   async sortBy(option: string) {
-    await this.productsPageElements.sortSelect.selectOption(option);
+    return AllureLogger.logStep(`sort products by "${option}"`, async () => {
+      await this.productsPageElements.sortSelect.selectOption(option);
+    });
   }
 
   async filterByCategory(categoryName: string) {
-    await this.productsPageElements.categoryCheckbox(categoryName).click();
+    return AllureLogger.logStep(`filter by category "${categoryName}"`, async () => {
+      await this.productsPageElements.categoryCheckbox(categoryName).click();
+    });
   }
 
   async goToNextPage() {
-    await this.productsPageElements.pagination.next.click();
+    return AllureLogger.logStep('go to the next page of products', async () => {
+      await this.productsPageElements.pagination.next.click();
+    });
   }
 
   async goToPreviousPage() {
-    await this.productsPageElements.pagination.previous.click();
+    return AllureLogger.logStep('go to the previous page of products', async () => {
+      await this.productsPageElements.pagination.previous.click();
+    });
   }
 
   async openProduct(productName: string) {
-    await this.productsPageElements.productCard(productName).click();
+    return AllureLogger.logStep(`open the product "${productName}"`, async () => {
+      await this.productsPageElements.productCard(productName).click();
+    });
   }
 }

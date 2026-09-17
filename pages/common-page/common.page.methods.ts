@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { CommonPageElements } from './common.page.elements';
+import { AllureLogger } from '../../support/allure-logger';
 
 export class CommonPageMethods {
   private page: Page;
@@ -11,35 +12,51 @@ export class CommonPageMethods {
   }
 
   async navigateToTheApplication() {
-    await this.page.goto('https://practicesoftwaretesting.com/');
+    return AllureLogger.logStep('navigate to the application home page', async () => {
+      await this.page.goto('https://practicesoftwaretesting.com/');
+    });
   }
 
   async goto(path: string) {
-    await this.page.goto(path);
+    return AllureLogger.logStep(`navigate to "${path}"`, async () => {
+      await this.page.goto(path);
+    });
   }
 
   async clickHome() {
-    await this.commonPageElements.navbar.home.click();
+    return AllureLogger.logStep('click the Home navbar link', async () => {
+      await this.commonPageElements.navbar.home.click();
+    });
   }
 
   async openCategoriesMenu() {
-    await this.commonPageElements.navbar.categories.click();
+    return AllureLogger.logStep('open the Categories dropdown menu', async () => {
+      await this.commonPageElements.navbar.categories.click();
+    });
   }
 
   async clickContact() {
-    await this.commonPageElements.navbar.contact.click();
+    return AllureLogger.logStep('click the Contact navbar link', async () => {
+      await this.commonPageElements.navbar.contact.click();
+    });
   }
 
   async clickSignIn() {
-    await this.commonPageElements.navbar.signIn.click();
+    return AllureLogger.logStep('click the Sign In navbar link', async () => {
+      await this.commonPageElements.navbar.signIn.click();
+    });
   }
 
   async clickCartIcon() {
-    await this.commonPageElements.navbar.cart.click();
+    return AllureLogger.logStep('click the cart icon', async () => {
+      await this.commonPageElements.navbar.cart.click();
+    });
   }
 
   async clickLogOut() {
-    await this.commonPageElements.navbar.accountMenu.click();
-    await this.commonPageElements.navbar.signOut.click();
+    return AllureLogger.logStep('log out via the account menu', async () => {
+      await this.commonPageElements.navbar.accountMenu.click();
+      await this.commonPageElements.navbar.signOut.click();
+    });
   }
 }

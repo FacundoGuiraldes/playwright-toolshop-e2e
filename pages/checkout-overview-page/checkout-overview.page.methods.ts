@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { CheckoutOverviewPageElements } from './checkout-overview.page.elements';
+import { AllureLogger } from '../../support/allure-logger';
 
 export class CheckoutOverviewPageMethods {
   private page: Page;
@@ -11,16 +12,22 @@ export class CheckoutOverviewPageMethods {
   }
 
   async selectPaymentMethod(method: string) {
-    await this.checkoutOverviewPageElements.paymentMethodSelect.selectOption({ label: method });
+    return AllureLogger.logStep(`select payment method "${method}"`, async () => {
+      await this.checkoutOverviewPageElements.paymentMethodSelect.selectOption({ label: method });
+    });
   }
 
   async fillBankTransferDetails(details: { bankName: string; accountName: string; accountNumber: string }) {
-    await this.checkoutOverviewPageElements.bankTransferDetails.bankName.fill(details.bankName);
-    await this.checkoutOverviewPageElements.bankTransferDetails.accountName.fill(details.accountName);
-    await this.checkoutOverviewPageElements.bankTransferDetails.accountNumber.fill(details.accountNumber);
+    return AllureLogger.logStep('fill in bank transfer details', async () => {
+      await this.checkoutOverviewPageElements.bankTransferDetails.bankName.fill(details.bankName);
+      await this.checkoutOverviewPageElements.bankTransferDetails.accountName.fill(details.accountName);
+      await this.checkoutOverviewPageElements.bankTransferDetails.accountNumber.fill(details.accountNumber);
+    });
   }
 
   async clickConfirm() {
-    await this.checkoutOverviewPageElements.confirmButton.click();
+    return AllureLogger.logStep('confirm and finish the purchase', async () => {
+      await this.checkoutOverviewPageElements.confirmButton.click();
+    });
   }
 }

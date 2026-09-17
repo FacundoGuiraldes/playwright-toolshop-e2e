@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { CartPageElements } from './cart.page.elements';
+import { AllureLogger } from '../../support/allure-logger';
 
 export class CartPageMethods {
   private page: Page;
@@ -11,14 +12,20 @@ export class CartPageMethods {
   }
 
   async setItemQuantity(quantity: number) {
-    await this.cartPageElements.item.quantity.fill(quantity.toString());
+    return AllureLogger.logStep(`set item quantity to ${quantity}`, async () => {
+      await this.cartPageElements.item.quantity.fill(quantity.toString());
+    });
   }
 
   async clickContinueShopping() {
-    await this.cartPageElements.continueShoppingButton.click();
+    return AllureLogger.logStep('click Continue Shopping', async () => {
+      await this.cartPageElements.continueShoppingButton.click();
+    });
   }
 
   async clickProceedToCheckout() {
-    await this.cartPageElements.proceedToCheckoutButton.click();
+    return AllureLogger.logStep('proceed to checkout from the cart', async () => {
+      await this.cartPageElements.proceedToCheckoutButton.click();
+    });
   }
 }
