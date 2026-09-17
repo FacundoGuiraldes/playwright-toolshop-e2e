@@ -34,4 +34,8 @@ export class ProductsPageMethods {
   async goToPreviousPage() {
     await this.productsPageElements.pagination.previous.click();
   }
+
+  async openProduct(productName: string) {
+    await this.productsPageElements.productCard(productName).click();
+  }
 }

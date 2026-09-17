@@ -33,4 +33,13 @@ export class CommonPageMethods {
   async clickSignIn() {
     await this.commonPageElements.navbar.signIn.click();
   }
+
+  async clickCartIcon() {
+    await this.commonPageElements.navbar.cart.click();
+  }
+
+  async clickLogOut() {
+    await this.commonPageElements.navbar.accountMenu.click();
+    await this.commonPageElements.navbar.signOut.click();
+  }
 }

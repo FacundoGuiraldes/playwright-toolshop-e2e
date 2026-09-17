@@ -14,6 +14,10 @@ export class CommonPageElements {
       contact: this.page.locator('[data-test="nav-contact"]'),
       signIn: this.page.locator('[data-test="nav-sign-in"]'),
       languageSelect: this.page.locator('[data-test="language-select"]'),
+      accountMenu: this.page.locator('[data-test="nav-menu"]'),
+      signOut: this.page.locator('[data-test="nav-sign-out"]'),
+      cart: this.page.locator('[data-test="nav-cart"]'),
+      cartQuantity: this.page.locator('[data-test="cart-quantity"]'),
     };
   }
 }

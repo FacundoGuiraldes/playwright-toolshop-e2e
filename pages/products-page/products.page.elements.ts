@@ -29,4 +29,10 @@ export class ProductsPageElements {
   categoryCheckbox(categoryName: string) {
     return this.page.getByLabel(categoryName);
   }
+
+  productCard(productName: string) {
+    return this.page.locator('a[data-test^="product-"]').filter({
+      has: this.page.locator('[data-test="product-name"]', { hasText: new RegExp(`^\\s*${productName}\\s*$`) }),
+    });
+  }
 }
