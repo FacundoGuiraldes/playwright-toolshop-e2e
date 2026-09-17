@@ -4,10 +4,11 @@
   "description": "Framework de testing E2E con Playwright y TypeScript sobre Toolshop (practicesoftwaretesting.com), con Page Object Model, reportes de pruebas, logging y pipeline de CI/CD.",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf allure-results",
     "run-test": "playwright test",
     "generate-report": "allure generate allure-results --clean -o allure-report",
     "open-report": "allure open allure-report",
-    "test-and-report": "run-s -c run-test generate-report open-report"
+    "test-and-report": "run-s -c clean run-test generate-report open-report"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "allure-playwright": "^3.12.2",
     "dotenv": "^17.4.2",
     "npm-run-all2": "^9.0.3",
+    "rimraf": "^6.1.3",
     "typescript": "^7.0.2"
   }
 }
