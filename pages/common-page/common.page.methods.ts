@@ -17,4 +17,20 @@ export class CommonPageMethods {
   async goto(path: string) {
     await this.page.goto(path);
   }
+
+  async clickHome() {
+    await this.commonPageElements.navbar.home.click();
+  }
+
+  async openCategoriesMenu() {
+    await this.commonPageElements.navbar.categories.click();
+  }
+
+  async clickContact() {
+    await this.commonPageElements.navbar.contact.click();
+  }
+
+  async clickSignIn() {
+    await this.commonPageElements.navbar.signIn.click();
+  }
 }
