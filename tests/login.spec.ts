@@ -15,6 +15,7 @@ test.describe('Login', () => {
 
   test('logs in successfully with valid credentials', async ({ page }) => {
     const loginPageMethods = new LoginPageMethods(page);
+    const commonPageElements = new CommonPageElements(page);
     const userCredentials = LoginPageData.validUser;
 
     await loginPageMethods.insertUserName(userCredentials.email);
@@ -22,6 +23,8 @@ test.describe('Login', () => {
     await loginPageMethods.clickLoginButton();
 
     await expect(page).toHaveURL(/\/account/);
+    await expect(commonPageElements.navbar.accountMenu).toBeVisible();
+    await expect(commonPageElements.navbar.signIn).not.toBeVisible();
   });
 
   test('shows an error with invalid credentials', async ({ page }) => {
