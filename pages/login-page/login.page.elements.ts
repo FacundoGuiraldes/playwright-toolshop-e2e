@@ -19,5 +19,13 @@ export class LoginPageElements {
         login: this.page.locator('[data-test="login-submit"]'),
     }
   }
+
+  get errors(){
+    return{
+        email: this.page.locator('[data-test="email-error"]'),
+        password: this.page.locator('[data-test="password-error"]'),
+        invalidCredentials: this.page.locator('[data-test="login-error"]'),
+    }
+  }
 }
 
