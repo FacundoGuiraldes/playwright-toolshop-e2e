@@ -51,6 +51,16 @@ test.describe('Login', () => {
     await expect(loginPageElements.errors.email).toHaveText(LoginPageData.errorMessages.emailRequired);
   });
 
+  test('shows required errors when both fields are blank', async ({ page }) => {
+    const loginPageMethods = new LoginPageMethods(page);
+    const loginPageElements = new LoginPageElements(page);
+
+    await loginPageMethods.clickLoginButton();
+
+    await expect(loginPageElements.errors.email).toHaveText(LoginPageData.errorMessages.emailRequired);
+    await expect(loginPageElements.errors.password).toHaveText(LoginPageData.errorMessages.passwordRequired);
+  });
+
   test('shows a required error when the password is empty', async ({ page }) => {
     const loginPageMethods = new LoginPageMethods(page);
     const loginPageElements = new LoginPageElements(page);
