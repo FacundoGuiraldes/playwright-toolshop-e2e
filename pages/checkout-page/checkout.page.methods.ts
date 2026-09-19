@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { CheckoutPageElements } from './checkout.page.elements';
+import { Address } from './checkout.page.interfaces';
 import { AllureLogger } from '../../support/allure-logger';
 
 export class CheckoutPageMethods {
@@ -17,14 +18,7 @@ export class CheckoutPageMethods {
     });
   }
 
-  async fillAddress(address: {
-    country: string;
-    postalCode: string;
-    houseNumber: string;
-    street: string;
-    city: string;
-    state: string;
-  }) {
+  async fillAddress(address: Address) {
     return AllureLogger.logStep(`fill in the shipping address for "${address.country}"`, async () => {
       await this.checkoutPageElements.address.country.selectOption({ label: address.country });
       await this.checkoutPageElements.address.postalCode.fill(address.postalCode);

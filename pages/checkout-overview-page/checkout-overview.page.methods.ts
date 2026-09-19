@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { CheckoutOverviewPageElements } from './checkout-overview.page.elements';
+import { BankTransferDetails } from './checkout-overview.page.interfaces';
 import { AllureLogger } from '../../support/allure-logger';
 
 export class CheckoutOverviewPageMethods {
@@ -17,7 +18,7 @@ export class CheckoutOverviewPageMethods {
     });
   }
 
-  async fillBankTransferDetails(details: { bankName: string; accountName: string; accountNumber: string }) {
+  async fillBankTransferDetails(details: BankTransferDetails) {
     return AllureLogger.logStep('fill in bank transfer details', async () => {
       await this.checkoutOverviewPageElements.bankTransferDetails.bankName.fill(details.bankName);
       await this.checkoutOverviewPageElements.bankTransferDetails.accountName.fill(details.accountName);
