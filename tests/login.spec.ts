@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../support/base-test';
+import { suite } from 'allure-js-commons';
 import { CommonPageMethods } from '../pages/common-page/common.page.methods';
 import { CommonPageElements } from '../pages/common-page/common.page.elements';
 import { LoginPageMethods } from '../pages/login-page/login.page.methods';
@@ -7,6 +8,7 @@ import { LoginPageData } from '../pages/login-page/login.page.data';
 
 test.describe('Login', () => {
   test.beforeEach(async ({ page }) => {
+    await suite('Login');
     const commonPageMethods = new CommonPageMethods(page);
     await commonPageMethods.goto('/auth/login');
   });
