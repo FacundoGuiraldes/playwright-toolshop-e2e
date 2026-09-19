@@ -28,4 +28,10 @@ export class CartPageMethods {
       await this.cartPageElements.proceedToCheckoutButton.click();
     });
   }
+
+  async removeItem() {
+    return AllureLogger.logStep('remove the item from the cart', async () => {
+      await this.cartPageElements.item.removeButton.click();
+    });
+  }
 }

@@ -13,6 +13,7 @@ export class CartPageElements {
       quantity: this.page.locator('[data-test="product-quantity"]'),
       price: this.page.locator('[data-test="product-price"]'),
       lineTotal: this.page.locator('[data-test="line-price"]'),
+      removeButton: this.page.locator('a.btn-danger'),
     };
   }
 
