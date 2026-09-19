@@ -1,5 +1,6 @@
-import { test, expect } from '../support/base-test';
+﻿import { test, expect } from '../support/base-test';
 import { suite } from 'allure-js-commons';
+import { AllureLogger } from '../support/allure-logger';
 import { CommonPageMethods } from '../pages/common-page/common.page.methods';
 import { LoginPageMethods } from '../pages/login-page/login.page.methods';
 import { LoginPageData } from '../pages/login-page/login.page.data';
@@ -16,22 +17,24 @@ import { CheckoutOverviewPageData } from '../pages/checkout-overview-page/checko
 test.describe('Checkout', () => {
   test.beforeEach(async ({ page }) => {
     await suite('Checkout');
-    const commonPageMethods = new CommonPageMethods(page);
-    const loginPageMethods = new LoginPageMethods(page);
-    const productsPageMethods = new ProductsPageMethods(page);
-    const productDetailPageMethods = new ProductDetailPageMethods(page);
-    const userCredentials = LoginPageData.validUser;
+    await AllureLogger.logPreCondition('log in and add a product to the cart', async () => {
+      const commonPageMethods = new CommonPageMethods(page);
+      const loginPageMethods = new LoginPageMethods(page);
+      const productsPageMethods = new ProductsPageMethods(page);
+      const productDetailPageMethods = new ProductDetailPageMethods(page);
+      const userCredentials = LoginPageData.validUser;
 
-    await commonPageMethods.goto('/auth/login');
-    await loginPageMethods.insertUserName(userCredentials.email);
-    await loginPageMethods.insertPassword(userCredentials.password);
-    await loginPageMethods.clickLoginButton();
-    await expect(page).toHaveURL(/\/account/);
+      await commonPageMethods.goto('/auth/login');
+      await loginPageMethods.insertEmail(userCredentials.email);
+      await loginPageMethods.insertPassword(userCredentials.password);
+      await loginPageMethods.clickLoginButton();
+      await expect(page).toHaveURL(/\/account/);
 
-    await commonPageMethods.goto('/');
-    await productsPageMethods.openProduct('Hammer');
-    await productDetailPageMethods.addToCart();
-    await commonPageMethods.clickCartIcon();
+      await commonPageMethods.goto('/');
+      await productsPageMethods.openProduct('Hammer');
+      await productDetailPageMethods.addToCart();
+      await commonPageMethods.clickCartIcon();
+    });
   });
 
   test('completes a purchase with a valid address and bank transfer payment', async ({ page }) => {
@@ -44,19 +47,23 @@ test.describe('Checkout', () => {
     await cartPageMethods.clickProceedToCheckout();
     await checkoutPageMethods.clickContinueAsLoggedIn();
 
-    await expect(checkoutPageElements.address.country).toBeVisible();
+    await AllureLogger.logVerification('address form becomes visible', () =>
+      expect(checkoutPageElements.address.country).toBeVisible()
+    );
 
     await checkoutPageMethods.fillAddress(CheckoutPageData.validAddress);
     await checkoutPageMethods.clickConfirmAddress();
 
-    await expect(checkoutOverviewPageElements.paymentMethodSelect).toBeVisible();
+    await AllureLogger.logVerification('payment method selector becomes visible', () =>
+      expect(checkoutOverviewPageElements.paymentMethodSelect).toBeVisible()
+    );
 
     await checkoutOverviewPageMethods.selectPaymentMethod(CheckoutOverviewPageData.paymentMethod);
     await checkoutOverviewPageMethods.fillBankTransferDetails(CheckoutOverviewPageData.bankTransferDetails);
     await checkoutOverviewPageMethods.clickConfirm();
 
-    await expect(checkoutOverviewPageElements.successMessage).toHaveText(
-      CheckoutOverviewPageData.successMessage
+    await AllureLogger.logVerification('payment success message is shown', () =>
+      expect(checkoutOverviewPageElements.successMessage).toHaveText(CheckoutOverviewPageData.successMessage)
     );
   });
 });

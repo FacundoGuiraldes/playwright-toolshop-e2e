@@ -1,5 +1,6 @@
 import { test, expect } from '../support/base-test';
 import { suite } from 'allure-js-commons';
+import { AllureLogger } from '../support/allure-logger';
 import { CommonPageMethods } from '../pages/common-page/common.page.methods';
 import { CommonPageElements } from '../pages/common-page/common.page.elements';
 import { ProductsPageMethods } from '../pages/products-page/products.page.methods';
@@ -10,8 +11,10 @@ import { CartPageElements } from '../pages/cart-page/cart.page.elements';
 test.describe('Cart', () => {
   test.beforeEach(async ({ page }) => {
     await suite('Cart');
-    const commonPageMethods = new CommonPageMethods(page);
-    await commonPageMethods.goto('/');
+    await AllureLogger.logPreCondition('start from the home page', async () => {
+      const commonPageMethods = new CommonPageMethods(page);
+      await commonPageMethods.goto('/');
+    });
   });
 
   test('adds a product to the cart', async ({ page }) => {
@@ -22,7 +25,9 @@ test.describe('Cart', () => {
     await productsPageMethods.openProduct('Hammer');
     await productDetailPageMethods.addToCart();
 
-    await expect(commonPageElements.navbar.cartQuantity).toHaveText('1');
+    await AllureLogger.logVerification('cart quantity shows 1', () =>
+      expect(commonPageElements.navbar.cartQuantity).toHaveText('1')
+    );
   });
 
   test('removes a product from the cart', async ({ page }) => {
@@ -35,12 +40,18 @@ test.describe('Cart', () => {
 
     await productsPageMethods.openProduct('Hammer');
     await productDetailPageMethods.addToCart();
-    await expect(commonPageElements.navbar.cartQuantity).toHaveText('1');
+    await AllureLogger.logVerification('cart quantity shows 1', () =>
+      expect(commonPageElements.navbar.cartQuantity).toHaveText('1')
+    );
 
     await commonPageMethods.clickCartIcon();
     await cartPageMethods.removeItem();
 
-    await expect(cartPageElements.item.title).not.toBeVisible();
-    await expect(commonPageElements.navbar.cart).not.toBeVisible();
+    await AllureLogger.logPostCondition('cart item is no longer listed', () =>
+      expect(cartPageElements.item.title).not.toBeVisible()
+    );
+    await AllureLogger.logPostCondition('cart icon disappears from the navbar', () =>
+      expect(commonPageElements.navbar.cart).not.toBeVisible()
+    );
   });
 });

@@ -2,7 +2,6 @@
   "name": "playwright-toolshop-e2e",
   "version": "1.0.0",
   "description": "Framework de testing E2E con Playwright y TypeScript sobre Toolshop (practicesoftwaretesting.com), con Page Object Model, reportes de pruebas, logging y pipeline de CI/CD.",
-  "main": "index.js",
   "scripts": {
     "clean": "rimraf allure-results",
     "run-test": "playwright test",
@@ -14,8 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/FacundoGuiraldes/playwright-toolshop-e2e.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["playwright", "typescript", "e2e", "page-object-model", "allure"],
+  "author": "Facundo Guiraldes",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -24,7 +23,6 @@
   "homepage": "https://github.com/FacundoGuiraldes/playwright-toolshop-e2e#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/jest": "^30.0.0",
     "@types/node": "^26.6.0",
     "allure-commandline": "^2.46.1",
     "allure-js-commons": "^3.12.2",

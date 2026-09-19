@@ -3,11 +3,9 @@ import { ProductsPageElements } from './products.page.elements';
 import { AllureLogger } from '../../support/allure-logger';
 
 export class ProductsPageMethods {
-  private page: Page;
   private productsPageElements: ProductsPageElements;
 
   constructor(page: Page) {
-    this.page = page;
     this.productsPageElements = new ProductsPageElements(page);
   }
 

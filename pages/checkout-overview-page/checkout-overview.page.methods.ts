@@ -4,11 +4,9 @@ import { BankTransferDetails } from './checkout-overview.page.interfaces';
 import { AllureLogger } from '../../support/allure-logger';
 
 export class CheckoutOverviewPageMethods {
-  private page: Page;
   private checkoutOverviewPageElements: CheckoutOverviewPageElements;
 
   constructor(page: Page) {
-    this.page = page;
     this.checkoutOverviewPageElements = new CheckoutOverviewPageElements(page);
   }
 

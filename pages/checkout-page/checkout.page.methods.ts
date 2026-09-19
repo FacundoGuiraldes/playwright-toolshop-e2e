@@ -4,11 +4,9 @@ import { Address } from './checkout.page.interfaces';
 import { AllureLogger } from '../../support/allure-logger';
 
 export class CheckoutPageMethods {
-  private page: Page;
   private checkoutPageElements: CheckoutPageElements;
 
   constructor(page: Page) {
-    this.page = page;
     this.checkoutPageElements = new CheckoutPageElements(page);
   }
 
