@@ -106,6 +106,17 @@ Or run everything in one step — clean old results, run the tests, generate and
 npm run test-and-report
 ```
 
+## CI/CD
+
+GitHub Actions runs on every push/PR to `main` (`.github/workflows/playwright.yml`), split into two jobs:
+
+- **`typecheck`** — `tsc --noEmit`. Fast, fully self-contained, always a reliable pass/fail signal.
+- **`e2e`** — runs the Playwright suite against the live Toolshop site and uploads the Allure report and traces as artifacts. Marked `continue-on-error: true` — see **Known Limitations** below for why.
+
+## Known Limitations
+
+**CI runs against the live site can be blocked by Cloudflare.** practicesoftwaretesting.com is a third-party demo application protected by Cloudflare's bot detection, which can flag traffic from shared CI provider IP ranges (GitHub Actions' included) and serve a "verifying you are not a bot" interstitial instead of the real page. This is an external infrastructure constraint, not a defect in the test suite — the full suite passes consistently when run locally. This is also why the `e2e` CI job is non-blocking: a Cloudflare challenge shouldn't be treated the same as a genuine regression.
+
 ## Test Coverage
 
 | Suite | Cases |
@@ -118,5 +129,4 @@ npm run test-and-report
 
 ## Roadmap
 
-- CI/CD pipeline (GitHub Actions)
 - `account-page` / `register-page` coverage
